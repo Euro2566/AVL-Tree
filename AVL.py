@@ -17,7 +17,7 @@ class Tree:
 
         Z.left = T3
         Y.right = Z
-
+        #ต้องเช็คความสูงของโหนดลูกหลังการหมุน
         Z.hight = 1 + max(self.Hight(Z.left), self.Hight(Z.right))
         Y.hight = 1 + max(self.Hight(Y.left), self.Hight(Y.right))
 
@@ -31,7 +31,7 @@ class Tree:
 
         Z.right = T2
         Y.left = Z
-
+        #ต้องเช็คความสูงของโหนดลูกหลังการหมุน
         Z.hight = 1 + max(self.Hight(Z.left), self.Hight(Z.right))
         Y.hight = 1 + max(self.Hight(Y.left), self.Hight(Y.right))
 
@@ -72,23 +72,33 @@ class Tree:
 
         print(Node.value," Balance = ",balance)
 
-        if balance > 1 and Value < Node.left.value:
-            print("Right Rotation")
-            return self.RightRotation(Node)
+        if balance > 1 and Value < Node.left.value: #เช็คเงื่อนไขในการหมุนขวา คือ ความสูงของโหนดลูกมีความไม่สมดุลทางซ้าย
+            print("Right Rotation")                 #          5                        4
+            return self.RightRotation(Node)         #         /                        /  \
+                                                    #        4            --->        3    5
+                                                    #       /
+                                                    #      3
+        
+        if balance < -1 and Value > Node.right.value: #เช็คเงื่อนไขในการหมุนซ้าย คือ ความสูงของโหนดลูกมีความไม่สมดุลทางขวา
+            print("Left Rotation")                  #          3                         4
+            return self.LeftRotation(Node)          #           \                       /  \
+                                                    #            4         --->        3    5
+                                                    #             \
+                                                    #              5
 
-        if balance < -1 and Value > Node.right.value:
-            print("Left Rotation")
-            return self.LeftRotation(Node) 
-
-        if balance > 1 and Value > Node.left.value:
-            print("Left Right Rotation")
-            Node.left = self.LeftRotation(Node.left)
-            return self.RightRotation(Node)
-
-        if balance < -1 and Value < Node.right.value:
-            print("Right Left Rotation")
-            Node.right = self.RightRotation(Node.right)
-            return self.LeftRotation(Node)        
+        if balance > 1 and Value > Node.left.value: #เช็คเงื่อนไขในการหมุนซ้ายขวา คือ ความสูงของโหนดลูกมีความไม่สมดุลเอียงซ้ายไปขวา
+            print("Left Right Rotation")                #           6                  6                   5
+            Node.left = self.LeftRotation(Node.left)    #          /                  /                   / \
+            return self.RightRotation(Node)             #         4        --->      5        --->       4   6
+                                                        #          \                /
+                                                        #            5             4
+                                                        
+        if balance < -1 and Value < Node.right.value: #เช็คเงื่อนไขในการหมุนขวาซ้าย คือ ความสูงของโหนดลูกมีความไม่สมดุลเอียงขวาไปซ้าย
+            print("Right Left Rotation")                #            5                   5                   6
+            Node.right = self.RightRotation(Node.right) #             \                   \                 / \
+            return self.LeftRotation(Node)              #              7    --->           6    --->       5   7
+                                                        #             /                     \
+                                                        #            6                       7
         return Node
             
                 
