@@ -94,11 +94,11 @@ class Tree:
                                                         #            5             4
                                                         
         if balance < -1 and Value < Node.right.value: #เช็คเงื่อนไขในการหมุนขวาซ้าย คือ ความสูงของโหนดลูกมีความไม่สมดุลเอียงขวาไปซ้าย
-            print("Right Left Rotation")                #            5                   5                   6
-            Node.right = self.RightRotation(Node.right) #             \                   \                 / \
-            return self.LeftRotation(Node)              #              7    --->           6    --->       5   7
-                                                        #             /                     \
-                                                        #            6                       7
+            print("Right Left Rotation")                #     h = 2       5                   5                   6
+            Node.right = self.RightRotation(Node.right) #                  \                   \                 / \
+            return self.LeftRotation(Node)              #     h = 1         7    --->           6    --->       5   7
+                                                        #                  /                     \
+                                                        #     h = 0       6                       7
         return Node
             
                 
